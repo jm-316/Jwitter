@@ -1,0 +1,36 @@
+@import '../style.scss';
+
+.logOut__btn {
+  width: 100px;
+  height: 66px;
+  padding: 12px;
+  display: flex;
+  margin: 12px 0;
+  border: none;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 200px;
+  background-color: $background;
+  color: $white;
+  margin-top: auto;
+  cursor: pointer;
+
+  &:hover {
+    color: $grayText;
+  }
+
+  &__image {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 40px;
+      border-radius: 50%;
+    }
+  }
+
+  &__username {
+    margin: 0 12px;
+    font-weight: 300;
+  }
+}
