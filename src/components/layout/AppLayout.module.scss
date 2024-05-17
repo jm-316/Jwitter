@@ -1,0 +1,34 @@
+@import '../../style.scss';
+
+.container {
+  display: flex;
+  align-items: stretch;
+  height: 100vh;
+}
+
+.left__section__wrapper {
+  width: 450px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin-left: 20px;
+  border-right: 1px solid $border;
+}
+
+.left__section {
+  padding: 20px;
+}
+
+.left__sectionFixed {
+  position: fixed;
+  top: 0;
+  width: 450px;
+}
+
+.logoPill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
