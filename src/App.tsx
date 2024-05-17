@@ -1,5 +1,5 @@
-import { Outlet } from 'react-router';
 import { ToastContainer } from 'react-toastify';
+import AppLayout from './components/layout/AppLayout';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         hideProgressBar
         newestOnTop
       />
-      <Outlet />
+      <AppLayout />
     </>
   );
 }
