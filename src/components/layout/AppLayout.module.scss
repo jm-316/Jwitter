@@ -3,21 +3,23 @@
 .container {
   display: flex;
   align-items: stretch;
+  justify-content: center;
   height: 100vh;
+  margin: 0 auto;
 }
 
 .left__section__wrapper {
-  width: 450px;
+  width: 275px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  margin-left: 20px;
+  justify-content: flex-end;
   border-right: 1px solid $border;
 }
 
 .left__section {
   padding: 20px;
+  align-items: flex-end;
 }
 
 .left__sectionFixed {
@@ -29,6 +31,12 @@
 .logoPill {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-bottom: 20px;
+}
+
+.right__section {
+  width: 990px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
 }
