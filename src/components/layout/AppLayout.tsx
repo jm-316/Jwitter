@@ -20,7 +20,7 @@ export default function AppLayout() {
         <Menu />
         <LogoutButton />
       </header>
-      <div>
+      <div className={styles.right__section}>
         <Outlet />
       </div>
     </div>
