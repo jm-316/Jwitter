@@ -15,6 +15,7 @@ import SignupPage from './pages/users/signup.tsx';
 import NotFoundPage from './pages/notFound/index.tsx';
 import AppLayout from './components/layout/AppLayout.tsx';
 import './index.scss';
+import { AuthContextProvider } from './components/context/AuthContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <AuthContextProvider>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </AuthContextProvider>,
 );
