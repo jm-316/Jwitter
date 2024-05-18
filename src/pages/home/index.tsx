@@ -1,9 +1,9 @@
-import { LuImage } from 'react-icons/lu';
 import { FaUserCircle, FaRegHeart, FaRegCommentDots } from 'react-icons/fa';
 import { IoSearchSharp } from 'react-icons/io5';
+import { LuImage } from 'react-icons/lu';
+import { Link } from 'react-router-dom';
 
 import styles from './Home.module.scss';
-import { Link } from 'react-router-dom';
 
 interface PostProps {
   id: string;
