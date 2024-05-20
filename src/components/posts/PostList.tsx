@@ -1,13 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { FaRegCommentDots, FaRegHeart, FaUserCircle } from 'react-icons/fa';
+import {
+  FaHeart,
+  FaRegCommentDots,
+  FaRegHeart,
+  FaUserCircle,
+} from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { DeletePost } from '../../api/firebase';
-import usePosts from '../../hooks/usePosts';
-import { PostProps } from '../../type';
+import { useContext } from 'react';
+import { DeletePost, addLike, removeLike } from '../../api/firebase';
+import AuthContext from '../context/AuthContext';
+import { PostListProps, PostProps } from '../../type';
 import styles from './PostList.module.scss';
 
-export default function PostList() {
-  const { posts } = usePosts();
+export default function PostList({ post }: PostListProps) {
+  const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -21,54 +27,62 @@ export default function PostList() {
     navigate('/');
   };
 
+  const toggleLike = async () => {
+    if (!user) return;
+
+    if (user?.uid && post?.likes?.includes(user?.uid)) {
+      await removeLike(post, user);
+    } else {
+      await addLike(post, user);
+    }
+  };
+
   return (
     <div className={styles.post}>
-      {posts?.map((post) => (
-        <div key={post.id} className={styles.post__box}>
-          <div className={styles.post__boxProfile}>
-            <div className={styles.post__flex}>
-              {post?.profileUrl ? (
-                <img
-                  src={post?.profileUrl}
-                  alt="profile"
-                  className={styles.post__profileImage}
-                />
-              ) : (
-                <FaUserCircle className={styles.post__boxProfileIcon} />
-              )}
-              <div>
-                <div className={styles.post__flex}>
-                  <div className={styles.post__email}>{post?.email}</div>
-                  <div className={styles.post__createdAt}>
-                    {post?.createdAt}
-                  </div>
-                </div>
-                <Link to={`/posts/${post?.id}`}>
-                  <div className={styles.post__boxContent}>{post.content}</div>
-                </Link>
+      <div key={post.id} className={styles.post__box}>
+        <div className={styles.post__boxProfile}>
+          <div className={styles.post__flex}>
+            {post?.profileUrl ? (
+              <img
+                src={post?.profileUrl}
+                alt="profile"
+                className={styles.post__profileImage}
+              />
+            ) : (
+              <FaUserCircle className={styles.post__boxProfileIcon} />
+            )}
+            <div>
+              <div className={styles.post__flex}>
+                <div className={styles.post__email}>{post?.email}</div>
+                <div className={styles.post__createdAt}>{post?.createdAt}</div>
               </div>
+              <Link to={`/posts/${post?.id}`}>
+                <div className={styles.post__boxContent}>{post.content}</div>
+              </Link>
             </div>
           </div>
-          <Link to={`/posts/${post?.id}`}>
-            {post?.imageUrl && (
-              <div className={styles.post__imageDiv}>
-                <img
-                  src={post?.imageUrl}
-                  alt="post__image"
-                  width={100}
-                  height={100}
-                />
-              </div>
-            )}
-            <div className={styles.post__hashtagsOutputs}>
-              {post?.hashTags?.map((tag, index) => (
-                <span className={styles.post__hashtagsTag} key={index}>
-                  #{tag}
-                </span>
-              ))}
+        </div>
+        <Link to={`/posts/${post?.id}`}>
+          {post?.imageUrl && (
+            <div className={styles.post__imageDiv}>
+              <img
+                src={post?.imageUrl}
+                alt="post__image"
+                width={100}
+                height={100}
+              />
             </div>
-          </Link>
-          <div className={styles.post__boxFooter}>
+          )}
+          <div className={styles.post__hashtagsOutputs}>
+            {post?.hashTags?.map((tag) => (
+              <span className={styles.post__hashtagsTag} key={tag}>
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </Link>
+        <div className={styles.post__boxFooter}>
+          {user?.uid === post?.uid && (
             <>
               <button
                 type="button"
@@ -81,15 +95,24 @@ export default function PostList() {
                 <Link to={`/posts/edit/${post?.id}`}>수정</Link>
               </button>
             </>
-            <button type="button" className={styles.post__likes}>
+          )}
+          <button
+            type="button"
+            className={styles.post__likes}
+            onClick={toggleLike}
+          >
+            {user && post?.likes?.includes(user?.uid) ? (
+              <FaHeart />
+            ) : (
               <FaRegHeart />
-            </button>
-            <button type="button" className={styles.post__comments}>
-              <FaRegCommentDots />
-            </button>
-          </div>
+            )}
+            {post?.likeCount || 0}
+          </button>
+          <button type="button" className={styles.post__comments}>
+            <FaRegCommentDots />
+          </button>
         </div>
-      ))}
+      </div>
     </div>
   );
 }
