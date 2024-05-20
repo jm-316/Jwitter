@@ -48,6 +48,27 @@
     color: $grayText;
   }
 
+  &__hashtagsOutputs {
+    padding-left: 65px;
+    margin-top: 5px;
+
+    .post__hashtagsTag {
+      font-size: 14px;
+      border: 1px solid $primaryColor;
+      color: $primaryColor;
+      border-radius: 10px;
+      padding: 2px 8px;
+      margin-right: 6px;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        color: $activeBorder;
+        border: 1px solid $activeBorder;
+      }
+    }
+  }
+
   &__boxFooter {
     padding: 0 16px;
     margin-top: 10px;

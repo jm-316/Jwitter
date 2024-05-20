@@ -60,6 +60,13 @@ export default function PostList() {
                 />
               </div>
             )}
+            <div className={styles.post__hashtagsOutputs}>
+              {post?.hashTags?.map((tag, index) => (
+                <span className={styles.post__hashtagsTag} key={index}>
+                  #{tag}
+                </span>
+              ))}
+            </div>
           </Link>
           <div className={styles.post__boxFooter}>
             <>
