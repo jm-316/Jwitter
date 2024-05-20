@@ -62,6 +62,10 @@ export default function PostForm() {
     setTags(tags?.filter((value) => value !== tag));
   };
 
+  const handleDeleteImage = () => {
+    setImageFile(null);
+  };
+
   return (
     <form className={styles.postForm}>
       <div className={styles.postForm__content}>
@@ -100,17 +104,32 @@ export default function PostForm() {
         </div>
       </div>
       <div className={styles.postForm__submitArea}>
-        <label htmlFor="file-input" className={styles.postForm__file}>
-          <LuImage className={styles.postForm__fileIcon} />
-        </label>
-        <input
-          type="file"
-          name="file-input"
-          id="file-input"
-          accept="image/*"
-          className={styles.hidden}
-          onChange={handleFileUpload}
-        />
+        <div className={styles.postForm__imageArea}>
+          <label htmlFor="file-input" className={styles.postForm__file}>
+            <LuImage className={styles.postForm__fileIcon} />
+          </label>
+          <input
+            type="file"
+            name="file-input"
+            id="file-input"
+            accept="image/*"
+            className={styles.hidden}
+            onChange={handleFileUpload}
+          />
+          {imageFile && (
+            <div className={styles.postForm__attachment}>
+              <img src={imageFile} alt="attachment" width={100} height={100} />
+              <button
+                className={styles.postForm__clearBtn}
+                type="button"
+                onClick={handleDeleteImage}
+              >
+                삭제
+              </button>
+            </div>
+          )}
+        </div>
+
         <button className={styles.postForm__btn}>게시하기</button>
       </div>
     </form>
