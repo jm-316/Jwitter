@@ -3,37 +3,75 @@
 .postForm {
   &__content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     padding: 16px 16px 8px;
+    margin-bottom: 5px;
 
-    .postForm__contentImg {
-      display: block;
-      margin-right: 12px;
-      width: 40px;
-      height: 40px;
-      margin-top: 20px;
+    .postForm__contentBox {
+      background-color: $textarea;
     }
   }
   &__textarea {
     font-family: $font;
-    min-height: 100px;
+    min-height: 120px;
     display: block;
     width: 100%;
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 15px;
-    padding: 16px;
+    padding: 12px;
     border: none;
     resize: none;
     outline: none;
     font-size: 20px;
     background-color: $textarea;
+    color: $white;
 
     &::placeholder {
       font-family: $font;
       color: $grayText;
       font-size: 20px;
     }
+  }
+
+  &__hashtags {
+    padding: 16px;
+    border-top: 1px solid $border;
+
+    &__outputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 1px;
+      align-items: center;
+
+      .postForm__hashtagsTag {
+        font-size: 14px;
+        border: 1px solid $primaryColor;
+        color: $primaryColor;
+        border-radius: 10px;
+        padding: 2px 8px;
+        margin-right: 6px;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+          color: $activeBorder;
+          border: 1px solid $activeBorder;
+        }
+      }
+    }
+  }
+
+  &__input {
+    width: calc(100% - 32px);
+    background-color: $textarea;
+    font-family: $font;
+    padding: 8px;
+    border: none;
+    resize: none;
+    outline: none;
+    margin-top: 8px;
+    color: $white;
   }
 
   &__submitArea {
@@ -50,10 +88,8 @@
 
     .postForm__file {
       display: flex;
-      padding: 0 1rem;
       flex-direction: column;
       justify-content: center;
-      margin-left: 35px;
       cursor: pointer;
     }
 
