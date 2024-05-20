@@ -9,7 +9,14 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore';
 import {
   getDownloadURL,
   getStorage,
@@ -18,6 +25,8 @@ import {
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDateKrTime } from '../util/date';
+import { Dispatch, SetStateAction } from 'react';
+import { PostProps } from '../type';
 
 export let app: FirebaseApp;
 
@@ -94,5 +103,18 @@ export async function createPost(
     email: user?.email,
     hashTags: tags,
     imageUrl: imageUrl,
+  });
+}
+
+export async function getPost(callback: (posts: PostProps[]) => void) {
+  const postRef = collection(db, 'posts');
+  const postQuery = query(postRef, orderBy('createdAt', 'desc'));
+
+  onSnapshot(postQuery, (snapShot) => {
+    const dataObj = snapShot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc?.id,
+    }));
+    callback(dataObj as PostProps[]);
   });
 }
