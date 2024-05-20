@@ -16,3 +16,7 @@ export interface PostProps {
   likes?: string[];
   likeCount?: number;
 }
+
+export interface PostListProps {
+  post: PostProps;
+}
