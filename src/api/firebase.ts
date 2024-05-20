@@ -11,6 +11,8 @@ import {
 } from 'firebase/auth';
 import {
   addDoc,
+  arrayRemove,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -18,6 +20,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  updateDoc,
 } from 'firebase/firestore';
 import {
   deleteObject,
@@ -28,7 +31,6 @@ import {
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDateKrTime } from '../util/date';
-import { Dispatch, SetStateAction } from 'react';
 import { PostProps } from '../type';
 
 export let app: FirebaseApp;
@@ -129,4 +131,22 @@ export async function DeletePost(post: PostProps) {
   }
 
   await deleteDoc(doc(db, 'posts', post.id));
+}
+
+export async function removeLike(post: PostProps, user: User) {
+  const postRef = doc(db, 'posts', post.id);
+
+  await updateDoc(postRef, {
+    likes: arrayRemove(user?.uid),
+    likeCount: post?.likeCount ? post?.likeCount - 1 : 0,
+  });
+}
+
+export async function addLike(post: PostProps, user: User) {
+  const postRef = doc(db, 'posts', post.id);
+
+  await updateDoc(postRef, {
+    likes: arrayUnion(user?.uid),
+    likeCount: post?.likeCount ? post?.likeCount + 1 : 1,
+  });
 }
