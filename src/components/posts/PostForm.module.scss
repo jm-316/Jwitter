@@ -1,0 +1,140 @@
+@import '../../style.scss';
+
+.postForm {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 16px 8px;
+    margin-bottom: 5px;
+
+    .postForm__contentBox {
+      background-color: $textarea;
+    }
+  }
+  &__textarea {
+    font-family: $font;
+    min-height: 120px;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 12px;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 20px;
+    background-color: $textarea;
+    color: $white;
+
+    &::placeholder {
+      font-family: $font;
+      color: $grayText;
+      font-size: 20px;
+    }
+  }
+
+  &__hashtags {
+    padding: 16px;
+    border-top: 1px solid $border;
+
+    &__outputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 1px;
+      align-items: center;
+
+      .postForm__hashtagsTag {
+        font-size: 14px;
+        border: 1px solid $primaryColor;
+        color: $primaryColor;
+        border-radius: 10px;
+        padding: 2px 8px;
+        margin-right: 6px;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+          color: $activeBorder;
+          border: 1px solid $activeBorder;
+        }
+      }
+    }
+  }
+
+  &__input {
+    width: calc(100% - 32px);
+    background-color: $textarea;
+    font-family: $font;
+    padding: 8px;
+    border: none;
+    resize: none;
+    outline: none;
+    margin-top: 8px;
+    color: $white;
+  }
+
+  &__submitArea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    margin-top: -10px;
+    border-bottom: 1px solid $border;
+
+    .hidden {
+      display: none;
+    }
+
+    .postForm__file {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .postForm__fileIcon {
+      width: 20px;
+      height: 20px;
+      color: $primaryColor;
+
+      &:hover {
+        color: $activeBorder;
+      }
+    }
+  }
+
+  &__btn {
+    @extend .button;
+    padding: 0.5rem 1rem;
+    background-color: $primaryColor;
+
+    &:hover {
+      background-color: $activeBorder;
+    }
+  }
+
+  &__imageArea {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__attachment {
+    display: flex;
+    align-items: end;
+    gap: 20px;
+  }
+
+  &__clearBtn {
+    @extend .button;
+    padding: 0.2rem 0.8rem;
+    background-color: $danger;
+    font-size: 12px;
+
+    &:hover,
+    &:focus {
+      background-color: $dangerDark;
+    }
+  }
+}

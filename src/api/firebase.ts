@@ -2,12 +2,22 @@ import { FirebaseApp, getApp, initializeApp } from 'firebase/app';
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
+  User,
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadString,
+} from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
+import { formatDateKrTime } from '../util/date';
 
 export let app: FirebaseApp;
 
@@ -27,6 +37,8 @@ try {
 }
 
 const firebase = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 export default firebase;
 
@@ -58,4 +70,29 @@ export async function Login(email: string, password: string) {
 
 export async function logOut() {
   await signOut(auth);
+}
+
+export async function uploadImage(userUid: string, imageFile: string) {
+  const key = `${userUid}/${uuidv4()}`;
+  const storageRef = ref(storage, key);
+  const data = await uploadString(storageRef, imageFile, 'data_url');
+  const imageUrl = await getDownloadURL(data?.ref);
+
+  return imageUrl;
+}
+
+export async function createPost(
+  content: string,
+  user: User,
+  tags: string[],
+  imageUrl: string,
+) {
+  await addDoc(collection(db, 'posts'), {
+    content: content,
+    createdAt: formatDateKrTime(),
+    uid: user?.uid,
+    email: user?.email,
+    hashTags: tags,
+    imageUrl: imageUrl,
+  });
 }
