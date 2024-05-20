@@ -5,25 +5,26 @@ import { AuthProps } from '../../type';
 
 const AuthContext = createContext({
   user: null as User | null,
+  loading: true,
 });
 
 export const AuthContextProvider = ({ children }: AuthProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const auth = getAuth(app);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
-      } else {
-        setCurrentUser(null);
-      }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setLoading(false);
     });
+
+    return () => unsubscribe();
   }, [auth]);
 
   return (
-    <AuthContext.Provider value={{ user: currentUser }}>
+    <AuthContext.Provider value={{ user: currentUser, loading }}>
       {children}
     </AuthContext.Provider>
   );
