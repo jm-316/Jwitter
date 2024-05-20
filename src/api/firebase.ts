@@ -12,12 +12,15 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getFirestore,
   onSnapshot,
   orderBy,
   query,
 } from 'firebase/firestore';
 import {
+  deleteObject,
   getDownloadURL,
   getStorage,
   ref,
@@ -117,4 +120,13 @@ export async function getPost(callback: (posts: PostProps[]) => void) {
     }));
     callback(dataObj as PostProps[]);
   });
+}
+
+export async function DeletePost(post: PostProps) {
+  const imageRef = ref(storage, post?.imageUrl);
+  if (post?.imageUrl) {
+    deleteObject(imageRef).catch((error) => console.error(error));
+  }
+
+  await deleteDoc(doc(db, 'posts', post.id));
 }
