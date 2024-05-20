@@ -78,7 +78,7 @@ export default function LoginForm() {
 
   return (
     <form className={`${styles.form} ${styles.formLg}`} onSubmit={onSubmit}>
-      <div className={styles.form__title}>회원가입</div>
+      <div className={styles.form__title}>로그인</div>
       <div className={styles.form__block}>
         <label htmlFor="email">이메일</label>
         <input
