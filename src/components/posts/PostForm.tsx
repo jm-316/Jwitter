@@ -2,6 +2,8 @@ import { LuImage } from 'react-icons/lu';
 import { toast } from 'react-toastify';
 import React, { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
+import { createPost, uploadImage } from '../../api/firebase';
+import { getErrorMessage } from '../../util/error';
 import styles from './PostForm.module.scss';
 
 export default function PostForm() {
@@ -66,8 +68,34 @@ export default function PostForm() {
     setImageFile(null);
   };
 
+  const onSubmit = async (e: React.FocusEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      let imageUrl = '';
+      if (imageFile && user) {
+        imageUrl = await uploadImage(user?.uid, imageFile);
+      }
+
+      if (user) {
+        await createPost(content, user, tags, imageUrl);
+      }
+
+      setTags([]);
+      setHashTag('');
+      setContent('');
+      toast.success('게시글을 생성했습니다.');
+      setImageFile(null);
+      setIsSubmitting(false);
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      toast.error(errorMessage);
+    }
+  };
+
   return (
-    <form className={styles.postForm}>
+    <form className={styles.postForm} onSubmit={onSubmit}>
       <div className={styles.postForm__content}>
         <div className={styles.postForm__contentBox}>
           <textarea
@@ -130,7 +158,9 @@ export default function PostForm() {
           )}
         </div>
 
-        <button className={styles.postForm__btn}>게시하기</button>
+        <button className={styles.postForm__btn} disabled={isSubmitting}>
+          게시하기
+        </button>
       </div>
     </form>
   );
