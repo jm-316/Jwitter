@@ -28,7 +28,11 @@ export default function PostList() {
           <div className={styles.post__boxProfile}>
             <div className={styles.post__flex}>
               {post?.profileUrl ? (
-                <img src={post?.profileUrl} alt="profile" />
+                <img
+                  src={post?.profileUrl}
+                  alt="profile"
+                  className={styles.post__profileImage}
+                />
               ) : (
                 <FaUserCircle className={styles.post__boxProfileIcon} />
               )}
@@ -45,6 +49,18 @@ export default function PostList() {
               </div>
             </div>
           </div>
+          <Link to={`/posts/${post?.id}`}>
+            {post?.imageUrl && (
+              <div className={styles.post__imageDiv}>
+                <img
+                  src={post?.imageUrl}
+                  alt="post__image"
+                  width={100}
+                  height={100}
+                />
+              </div>
+            )}
+          </Link>
           <div className={styles.post__boxFooter}>
             <>
               <button
