@@ -2,8 +2,10 @@ import { IoSearchSharp } from 'react-icons/io5';
 import PostForm from '../../components/posts/PostForm';
 import PostList from '../../components/posts/PostList';
 import styles from './Home.module.scss';
+import usePosts from '../../hooks/usePosts';
 
 export default function Home() {
+  const { posts } = usePosts();
   return (
     <>
       <div className={styles.home}>
@@ -15,7 +17,13 @@ export default function Home() {
           <div className={styles.home__tab}>팔로우</div>
         </div>
         <PostForm />
-        <PostList />
+        {posts?.length > 0 ? (
+          posts.map((post) => <PostList post={post} key={post.id} />)
+        ) : (
+          <div>
+            <div>게시물이 없습니다.</div>
+          </div>
+        )}
       </div>
       <div className={styles.search}>
         <div className={styles.search__div}>
