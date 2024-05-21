@@ -1,0 +1,16 @@
+@import '../style.scss';
+
+.post__header {
+  button {
+    border: none;
+    padding: 16px;
+    background-color: $background;
+    color: $white;
+  }
+
+  &__btn {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+}
