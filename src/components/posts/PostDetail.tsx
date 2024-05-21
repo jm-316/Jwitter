@@ -27,7 +27,7 @@ export default function PostDetail() {
         {post ? (
           <>
             <PostList post={post} />
-            <CommentForm />
+            <CommentForm post={post} />
           </>
         ) : (
           <Loader />
