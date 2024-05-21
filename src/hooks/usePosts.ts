@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../components/context/AuthContext';
-import { getPost } from '../api/firebase';
+import { getPosts } from '../api/firebase';
 import { PostProps } from '../type';
 
 export default function usePosts() {
@@ -10,7 +10,7 @@ export default function usePosts() {
 
   useEffect(() => {
     if (user) {
-      getPost(setPosts);
+      getPosts(setPosts);
     }
   }, [user]);
 
