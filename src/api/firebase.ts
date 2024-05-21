@@ -31,7 +31,7 @@ import {
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDateKrTime } from '../util/date';
-import { PostProps } from '../type';
+import { PostListProps, PostProps } from '../type';
 
 export let app: FirebaseApp;
 
@@ -111,7 +111,7 @@ export async function createPost(
   });
 }
 
-export async function getPost(callback: (posts: PostProps[]) => void) {
+export async function getPosts(callback: (posts: PostProps[]) => void) {
   const postRef = collection(db, 'posts');
   const postQuery = query(postRef, orderBy('createdAt', 'desc'));
 
@@ -148,5 +148,16 @@ export async function addLike(post: PostProps, user: User) {
   await updateDoc(postRef, {
     likes: arrayUnion(user?.uid),
     likeCount: post?.likeCount ? post?.likeCount + 1 : 1,
+  });
+}
+
+export async function getPost(
+  paramsId: string,
+  callback: (post: PostProps) => void,
+) {
+  const docRef = doc(db, 'posts', paramsId);
+
+  onSnapshot(docRef, (doc) => {
+    callback({ ...(doc?.data() as PostProps), id: doc?.id });
   });
 }
