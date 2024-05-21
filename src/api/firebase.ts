@@ -31,7 +31,7 @@ import {
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDateKrTime } from '../util/date';
-import { PostListProps, PostProps } from '../type';
+import { PostProps } from '../type';
 
 export let app: FirebaseApp;
 
@@ -159,5 +159,23 @@ export async function getPost(
 
   onSnapshot(docRef, (doc) => {
     callback({ ...(doc?.data() as PostProps), id: doc?.id });
+  });
+}
+
+export async function createComment(
+  post: PostProps,
+  comment: string,
+  user: User,
+) {
+  const postRef = doc(db, 'posts', post?.id);
+  const commentObj = {
+    comment: comment,
+    uid: user?.uid,
+    email: user?.email,
+    createdAt: formatDateKrTime(),
+  };
+
+  await updateDoc(postRef, {
+    comments: arrayUnion(commentObj),
   });
 }
