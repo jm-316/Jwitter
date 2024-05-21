@@ -9,8 +9,21 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import {
+  addDoc,
+  arrayRemove,
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  getFirestore,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+} from 'firebase/firestore';
+import {
+  deleteObject,
   getDownloadURL,
   getStorage,
   ref,
@@ -18,6 +31,7 @@ import {
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDateKrTime } from '../util/date';
+import { PostProps } from '../type';
 
 export let app: FirebaseApp;
 
@@ -94,5 +108,45 @@ export async function createPost(
     email: user?.email,
     hashTags: tags,
     imageUrl: imageUrl,
+  });
+}
+
+export async function getPost(callback: (posts: PostProps[]) => void) {
+  const postRef = collection(db, 'posts');
+  const postQuery = query(postRef, orderBy('createdAt', 'desc'));
+
+  onSnapshot(postQuery, (snapShot) => {
+    const dataObj = snapShot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc?.id,
+    }));
+    callback(dataObj as PostProps[]);
+  });
+}
+
+export async function DeletePost(post: PostProps) {
+  const imageRef = ref(storage, post?.imageUrl);
+  if (post?.imageUrl) {
+    deleteObject(imageRef).catch((error) => console.error(error));
+  }
+
+  await deleteDoc(doc(db, 'posts', post.id));
+}
+
+export async function removeLike(post: PostProps, user: User) {
+  const postRef = doc(db, 'posts', post.id);
+
+  await updateDoc(postRef, {
+    likes: arrayRemove(user?.uid),
+    likeCount: post?.likeCount ? post?.likeCount - 1 : 0,
+  });
+}
+
+export async function addLike(post: PostProps, user: User) {
+  const postRef = doc(db, 'posts', post.id);
+
+  await updateDoc(postRef, {
+    likes: arrayUnion(user?.uid),
+    likeCount: post?.likeCount ? post?.likeCount + 1 : 1,
   });
 }

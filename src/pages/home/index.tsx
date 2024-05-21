@@ -1,51 +1,11 @@
-import { FaUserCircle, FaRegHeart, FaRegCommentDots } from 'react-icons/fa';
 import { IoSearchSharp } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
-
-import styles from './Home.module.scss';
 import PostForm from '../../components/posts/PostForm';
-
-interface PostProps {
-  id: string;
-  email: string;
-  content: string;
-  createdAt: string;
-  uid: string;
-  profileUrl?: string;
-}
-
-const posts: PostProps[] = [
-  {
-    id: '1',
-    email: 'test@test.com',
-    content: '12334',
-    createdAt: '2024-05-17',
-    uid: '1234',
-  },
-  {
-    id: '2',
-    email: 'test@test.com',
-    content: '12334',
-    createdAt: '2024-05-17',
-    uid: '1234',
-  },
-  {
-    id: '3',
-    email: 'test@test.com',
-    content: '12334',
-    createdAt: '2024-05-17',
-    uid: '1234',
-  },
-  {
-    id: '4',
-    email: 'test@test.com',
-    content: '12334',
-    createdAt: '2024-05-17',
-    uid: '1234',
-  },
-];
+import PostList from '../../components/posts/PostList';
+import styles from './Home.module.scss';
+import usePosts from '../../hooks/usePosts';
 
 export default function Home() {
+  const { posts } = usePosts();
   return (
     <>
       <div className={styles.home}>
@@ -57,50 +17,13 @@ export default function Home() {
           <div className={styles.home__tab}>팔로우</div>
         </div>
         <PostForm />
-        <div className={styles.post}>
-          {posts?.map((post) => (
-            <div key={post.id} className={styles.post__box}>
-              <div className={styles.post__boxProfile}>
-                <div className={styles.post__flex}>
-                  {post?.profileUrl ? (
-                    <img src={post?.profileUrl} alt="profile" />
-                  ) : (
-                    <FaUserCircle className={styles.post__boxProfileIcon} />
-                  )}
-                  <div>
-                    <div className={styles.post__flex}>
-                      <div className={styles.post__email}>{post?.email}</div>
-                      <div className={styles.post__createdAt}>
-                        {post?.createdAt}
-                      </div>
-                    </div>
-                    <Link to={`/posts/${post?.id}`}>
-                      <div className={styles.post__boxContent}>
-                        {post.content}
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.post__boxFooter}>
-                <>
-                  <button type="button" className={styles.post__delete}>
-                    삭제
-                  </button>
-                  <button type="button" className={styles.post__edit}>
-                    <Link to={`/posts/edit/${post?.id}`}>수정</Link>
-                  </button>
-                </>
-                <button type="button" className={styles.post__likes}>
-                  <FaRegHeart />
-                </button>
-                <button type="button" className={styles.post__comments}>
-                  <FaRegCommentDots />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        {posts?.length > 0 ? (
+          posts.map((post) => <PostList post={post} key={post.id} />)
+        ) : (
+          <div>
+            <div>게시물이 없습니다.</div>
+          </div>
+        )}
       </div>
       <div className={styles.search}>
         <div className={styles.search__div}>
