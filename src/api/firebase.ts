@@ -31,7 +31,7 @@ import {
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDateKrTime } from '../util/date';
-import { PostProps } from '../type';
+import { CommentProps, PostProps } from '../type';
 
 export let app: FirebaseApp;
 
@@ -177,5 +177,13 @@ export async function createComment(
 
   await updateDoc(postRef, {
     comments: arrayUnion(commentObj),
+  });
+}
+
+export async function deleteComment(post: PostProps, comment: CommentProps) {
+  const postRef = doc(db, 'posts', post?.id);
+
+  await updateDoc(postRef, {
+    comments: arrayRemove(comment),
   });
 }
