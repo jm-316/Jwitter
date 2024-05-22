@@ -110,7 +110,7 @@ export default function PostList({ post }: PostListProps) {
           </button>
           <button type="button" className={styles.post__comments}>
             <FaRegCommentDots />
-            {post?.comments?.length || 0}
+            {post?.comments?.length || ''}
           </button>
         </div>
       </div>
