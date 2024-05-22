@@ -32,3 +32,8 @@ export interface CommentProps {
   email: string;
   createdAt: string;
 }
+
+export interface CommentListProps {
+  comment: CommentProps;
+  post: PostProps;
+}
