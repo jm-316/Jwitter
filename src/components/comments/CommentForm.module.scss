@@ -1,0 +1,47 @@
+@import '../../style.scss';
+
+.comment__form {
+  &__textarea {
+    font-family: $font;
+    min-height: 90px;
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 12px;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 20px;
+    background-color: $textarea;
+    color: $white;
+
+    &::placeholder {
+      font-family: $font;
+      color: $grayText;
+      font-size: 20px;
+    }
+  }
+
+  &__submitArea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+    padding: 0.75rem 1rem;
+    margin-top: -10px;
+    border-bottom: 1px solid $border;
+  }
+
+  &__btn {
+    @extend .button;
+    padding: 0.5rem 1rem;
+    background-color: $primaryColor;
+    font-size: 13px;
+
+    &:hover {
+      background-color: $activeBorder;
+    }
+  }
+}

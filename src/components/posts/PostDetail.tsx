@@ -5,8 +5,10 @@ import { getPost } from '../../api/firebase';
 import PostList from './PostList';
 import Loader from '../loader/Loader';
 import Header from '../Header';
-import { PostProps } from '../../type';
+import { CommentProps, PostProps } from '../../type';
 import styles from './PostDetail.module.scss';
+import CommentForm from '../comments/CommentForm';
+import CommentList from '../comments/CommentList';
 
 export default function PostDetail() {
   const [post, setPost] = useState<PostProps | null>(null);
@@ -23,7 +25,24 @@ export default function PostDetail() {
     <>
       <div className={styles.home}>
         <Header />
-        {post ? <PostList post={post} /> : <Loader />}
+        {post ? (
+          <>
+            <PostList post={post} />
+            <CommentForm post={post} />
+            {post?.comments
+              ?.slice(0)
+              ?.reverse()
+              .map((comment: CommentProps) => (
+                <CommentList
+                  comment={comment}
+                  post={post}
+                  key={comment.createdAt}
+                />
+              ))}
+          </>
+        ) : (
+          <Loader />
+        )}
       </div>
       <div className={styles.search}>
         <div className={styles.search__div}>
