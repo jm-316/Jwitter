@@ -8,6 +8,7 @@ import Header from '../Header';
 import { PostProps } from '../../type';
 import styles from './PostDetail.module.scss';
 import CommentForm from '../comments/CommentForm';
+import CommentList from '../comments/CommentList';
 
 export default function PostDetail() {
   const [post, setPost] = useState<PostProps | null>(null);
@@ -28,6 +29,7 @@ export default function PostDetail() {
           <>
             <PostList post={post} />
             <CommentForm post={post} />
+            <CommentList />
           </>
         ) : (
           <Loader />
