@@ -12,7 +12,8 @@
     margin-right: 12px;
     width: 40px;
 
-    img {
+    img,
+    comment__imageIcon {
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -41,6 +42,10 @@
       font-size: 12px;
       color: $grayText;
     }
+  }
+
+  &__userName {
+    color: $primaryColor;
   }
 
   &__submitDiv {

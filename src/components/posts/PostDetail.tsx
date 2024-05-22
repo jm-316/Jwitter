@@ -5,7 +5,7 @@ import { getPost } from '../../api/firebase';
 import PostList from './PostList';
 import Loader from '../loader/Loader';
 import Header from '../Header';
-import { PostProps } from '../../type';
+import { CommentProps, PostProps } from '../../type';
 import styles from './PostDetail.module.scss';
 import CommentForm from '../comments/CommentForm';
 import CommentList from '../comments/CommentList';
@@ -29,7 +29,16 @@ export default function PostDetail() {
           <>
             <PostList post={post} />
             <CommentForm post={post} />
-            <CommentList />
+            {post?.comments
+              ?.slice(0)
+              ?.reverse()
+              .map((comment: CommentProps) => (
+                <CommentList
+                  comment={comment}
+                  post={post}
+                  key={comment.createdAt}
+                />
+              ))}
           </>
         ) : (
           <Loader />
