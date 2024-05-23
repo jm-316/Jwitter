@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { useContext } from 'react';
 import { DeletePost, addLike, removeLike } from '../../api/firebase';
 import AuthContext from '../context/AuthContext';
+import FollowingBox from '../follow/FollowingBox';
 import { PostListProps, PostProps } from '../../type';
 import styles from './PostList.module.scss';
 
@@ -52,13 +53,20 @@ export default function PostList({ post }: PostListProps) {
               <FaUserCircle className={styles.post__boxProfileIcon} />
             )}
             <div>
-              <div className={styles.post__flex}>
-                <div className={styles.post__email}>{post?.email}</div>
-                <div className={styles.post__createdAt}>{post?.createdAt}</div>
+              <div className={styles.test}>
+                <div className={styles.post__flex}>
+                  <div className={styles.post__email}>{post?.email}</div>
+                  <div className={styles.post__createdAt}>
+                    {post?.createdAt}
+                  </div>
+                </div>
               </div>
               <Link to={`/posts/${post?.id}`}>
                 <div className={styles.post__boxContent}>{post.content}</div>
               </Link>
+            </div>
+            <div className={styles.post__followingBox}>
+              <FollowingBox post={post} />
             </div>
           </div>
         </div>
