@@ -1,5 +1,4 @@
 import { useParams } from 'react-router';
-import { IoSearchSharp } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
 import { getPost } from '../../api/firebase';
 import PostList from './PostList';
@@ -8,6 +7,7 @@ import Header from '../Header';
 import { CommentProps, PostProps } from '../../type';
 import CommentForm from '../comments/CommentForm';
 import CommentList from '../comments/CommentList';
+import Search from '../search/Search';
 import styles from './PostDetail.module.scss';
 
 export default function PostDetail() {
@@ -44,13 +44,7 @@ export default function PostDetail() {
           <Loader />
         )}
       </div>
-      <div className={styles.search}>
-        <div className={styles.search__div}>
-          <IoSearchSharp className={styles.search__icon} />
-          <input placeholder="해시태그 검색" className={styles.search__input} />
-        </div>
-        <div className={styles.search__post}>검색 내역이 없습니다.</div>
-      </div>
+      <Search isHome={true} />
     </>
   );
 }
