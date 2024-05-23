@@ -95,6 +95,26 @@ export async function uploadImage(userUid: string, imageFile: string) {
   return imageUrl;
 }
 
+export async function updatePost(
+  post: PostProps,
+  content: string,
+  tags: string[],
+  imageUrl: string,
+) {
+  const postRef = doc(db, 'posts', post?.id);
+
+  await updateDoc(postRef, {
+    content: content,
+    hashTags: tags,
+    imageUrl: imageUrl,
+  });
+}
+export async function deleteImage(post: PostProps) {
+  const imageRef = ref(storage, post?.imageUrl);
+
+  await deleteObject(imageRef).catch((error) => console.log(error));
+}
+
 export async function createPost(
   content: string,
   user: User,
