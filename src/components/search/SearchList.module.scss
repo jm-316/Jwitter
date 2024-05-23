@@ -1,0 +1,28 @@
+@import '../../style.scss';
+
+.tag {
+  width: 350px;
+  background-color: $textarea;
+  min-height: 150px;
+
+  &__title {
+    padding: 12px;
+  }
+
+  &__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+  }
+
+  &__btn {
+    @extend .button;
+    font-size: 10px;
+    background-color: $textarea;
+
+    &:hover {
+      background-color: $activeBg;
+    }
+  }
+}
