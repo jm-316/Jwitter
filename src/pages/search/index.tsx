@@ -1,4 +1,4 @@
-import FollowRecommendations from '../../components/FollowRecommendations';
+import FollowRecommendations from '../../components/follow/FollowRecommendations';
 import Search from '../../components/search/Search';
 
 export default function SearchPage() {
