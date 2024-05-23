@@ -49,23 +49,24 @@
 }
 
 .searchLg {
-  width: 585px;
-  margin-left: 15px;
+  width: 580px;
+  border-right: 1px solid $border;
 
   .search__input {
     position: fixed;
-    width: 585px;
+    width: 560px;
     background-color: $textarea;
     border-radius: 21px;
     display: flex;
     align-items: center;
+    margin-left: 9px;
     padding: 10px 10px 10px 40px;
     font-size: 16px;
     border: none;
   }
 
   .search__post {
-    width: 585px;
+    width: 570px;
     height: 60px;
     padding: 12px;
     border-radius: 21px;

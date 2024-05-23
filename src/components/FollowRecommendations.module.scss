@@ -1,0 +1,56 @@
+@import '../style.scss';
+.follow {
+  width: 350px;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 10px;
+  padding: 12px 16px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 16px;
+  background-color: $textarea;
+
+  &__wrapper {
+    display: flex;
+    padding: 12px 0;
+    height: 66px;
+  }
+
+  &__profile {
+    margin-right: 12px;
+  }
+
+  &__imageIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  &__userInfo {
+    flex: 1 1;
+
+    &__name {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+
+    &__email {
+      font-size: 13px;
+      line-height: 16px;
+      color: $grayDark;
+    }
+  }
+
+  &__btn {
+    @extend .button;
+    color: $background;
+    width: 76px;
+
+    &:hover {
+      background-color: $activeBg;
+      color: $white;
+    }
+  }
+}
