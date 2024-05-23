@@ -1,0 +1,79 @@
+@import '../../style.scss';
+
+.search {
+  display: flex;
+  flex-direction: column;
+
+  &__div {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    margin-bottom: 30px;
+    position: relative;
+
+    .search__iconBox {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+    }
+
+    .search__icon {
+      position: fixed;
+      font-size: 24px;
+      color: $white;
+      z-index: 1;
+    }
+    .search__input {
+      position: fixed;
+      width: 350px;
+      background-color: $textarea;
+      border-radius: 21px;
+      display: flex;
+      align-items: center;
+      padding: 10px 10px 10px 40px;
+      font-size: 16px;
+      border: none;
+      color: $white;
+      outline: none;
+    }
+  }
+
+  &__post {
+    width: 350px;
+    height: 60px;
+    padding: 12px;
+    border-radius: 21px;
+    background-color: $textarea;
+  }
+}
+
+.searchLg {
+  width: 580px;
+  border-right: 1px solid $border;
+
+  .search__input {
+    position: fixed;
+    width: 560px;
+    background-color: $textarea;
+    border-radius: 21px;
+    display: flex;
+    align-items: center;
+    margin-left: 9px;
+    padding: 10px 10px 10px 40px;
+    font-size: 16px;
+    border: none;
+  }
+
+  .search__post {
+    width: 570px;
+    height: 60px;
+    padding: 12px;
+    border-radius: 21px;
+    background-color: $textarea;
+  }
+}
+
+.hidden {
+  display: none;
+}

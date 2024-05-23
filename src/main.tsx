@@ -16,6 +16,7 @@ import MainPage from './pages/main/index.tsx';
 import AppLayout from './components/layout/AppLayout.tsx';
 import { AuthContextProvider } from './components/context/AuthContext.tsx';
 import ProtectedRoute from './components/ProtectedRoute.tsx';
+import { SearchContextProvider } from './components/context/SearchContext.tsx';
 import './index.scss';
 
 const router = createBrowserRouter([
@@ -59,6 +60,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <AuthContextProvider>
-    <RouterProvider router={router} />
+    <SearchContextProvider>
+      <RouterProvider router={router} />
+    </SearchContextProvider>
   </AuthContextProvider>,
 );

@@ -1,3 +1,11 @@
+import FollowRecommendations from '../../components/FollowRecommendations';
+import Search from '../../components/search/Search';
+
 export default function SearchPage() {
-  return <div>SearchPage</div>;
+  return (
+    <>
+      <Search isHome={false} />
+      <FollowRecommendations />
+    </>
+  );
 }
