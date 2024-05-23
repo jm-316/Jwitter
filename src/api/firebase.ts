@@ -21,6 +21,7 @@ import {
   orderBy,
   query,
   updateDoc,
+  where,
 } from 'firebase/firestore';
 import {
   deleteObject,
@@ -205,5 +206,25 @@ export async function deleteComment(post: PostProps, comment: CommentProps) {
 
   await updateDoc(postRef, {
     comments: arrayRemove(comment),
+  });
+}
+
+export async function searchHashTags(
+  tagQuery: string,
+  callback: (posts: PostProps[]) => void,
+) {
+  const postRef = collection(db, 'posts');
+  const postQuery = query(
+    postRef,
+    where('hashTags', 'array-contains-any', [tagQuery]),
+    orderBy('createdAt', 'desc'),
+  );
+
+  onSnapshot(postQuery, (snapShot) => {
+    const dataObj = snapShot?.docs?.map((doc) => ({
+      ...doc?.data(),
+      id: doc?.id,
+    }));
+    callback(dataObj as PostProps[]);
   });
 }
