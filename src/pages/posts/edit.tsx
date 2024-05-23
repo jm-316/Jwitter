@@ -1,3 +1,5 @@
+import PostEdit from '../../components/posts/PostEdit';
+
 export default function PostEditPage() {
-  return <div>PostEditPage</div>;
+  return <PostEdit />;
 }
