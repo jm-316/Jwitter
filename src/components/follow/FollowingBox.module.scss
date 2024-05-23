@@ -1,0 +1,21 @@
+@import '../../style.scss';
+
+.following__btn {
+  @extend .button;
+  background-color: $primaryColor;
+
+  &:hover {
+    background-color: $activeBorder;
+  }
+}
+
+.follow__btn {
+  @extend .button;
+  background-color: $white;
+  color: $activeBorder;
+
+  &:hover {
+    background-color: $activeBorder;
+    color: $white;
+  }
+}

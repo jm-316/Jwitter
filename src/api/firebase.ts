@@ -20,6 +20,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  setDoc,
   updateDoc,
   where,
 } from 'firebase/firestore';
@@ -32,7 +33,7 @@ import {
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDateKrTime } from '../util/date';
-import { CommentProps, PostProps } from '../type';
+import { CommentProps, PostProps, UserProps } from '../type';
 
 export let app: FirebaseApp;
 
@@ -226,5 +227,48 @@ export async function searchHashTags(
       id: doc?.id,
     }));
     callback(dataObj as PostProps[]);
+  });
+}
+
+export async function following(user: User, post: PostProps) {
+  const followingRef = doc(db, 'following', user?.uid);
+  const followerRef = doc(db, 'follower', post?.uid);
+
+  await setDoc(
+    followingRef,
+    {
+      users: arrayUnion({ id: post?.uid }),
+    },
+    { merge: true },
+  );
+
+  await setDoc(
+    followerRef,
+    { users: arrayUnion({ id: user?.uid }) },
+    { merge: true },
+  );
+}
+
+export async function removeFollowing(user: User, post: PostProps) {
+  const followingRef = doc(db, 'following', user?.uid);
+  const followerRef = doc(db, 'follower', post?.uid);
+
+  await updateDoc(followingRef, {
+    users: arrayRemove({ id: post?.uid }),
+  });
+  await updateDoc(followerRef, {
+    users: arrayRemove({ id: user.uid }),
+  });
+}
+
+export async function getFollowers(
+  uid: string,
+  callback: (followers: string[]) => void,
+) {
+  const ref = doc(db, 'follower', uid);
+  onSnapshot(ref, (doc) => {
+    const followers: string[] = [];
+    doc?.data()?.users.map((user: UserProps) => followers.push(user?.id));
+    callback(followers);
   });
 }
