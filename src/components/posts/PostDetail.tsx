@@ -6,9 +6,9 @@ import PostList from './PostList';
 import Loader from '../loader/Loader';
 import Header from '../Header';
 import { CommentProps, PostProps } from '../../type';
-import styles from './PostDetail.module.scss';
 import CommentForm from '../comments/CommentForm';
 import CommentList from '../comments/CommentList';
+import styles from './PostDetail.module.scss';
 
 export default function PostDetail() {
   const [post, setPost] = useState<PostProps | null>(null);
