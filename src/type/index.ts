@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 export interface AuthProps {
   children: ReactNode;
@@ -36,4 +36,13 @@ export interface CommentProps {
 export interface CommentListProps {
   comment: CommentProps;
   post: PostProps;
+}
+
+export interface SearchProps {
+  isHome: boolean;
+}
+
+export interface SearchContextProps {
+  tags: string[];
+  setTags: Dispatch<SetStateAction<string[]>>;
 }
