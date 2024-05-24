@@ -54,3 +54,5 @@ export interface FollowingProps {
 export interface UserProps {
   id: string;
 }
+
+export type TabType = 'all' | 'following';
