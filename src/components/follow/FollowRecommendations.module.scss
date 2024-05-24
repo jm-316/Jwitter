@@ -1,4 +1,4 @@
-@import '../style.scss';
+@import '../../style.scss';
 .follow {
   width: 350px;
   height: 270px;
@@ -45,12 +45,10 @@
 
   &__btn {
     @extend .button;
-    color: $background;
-    width: 76px;
+    background-color: $primaryColor;
 
     &:hover {
-      background-color: $activeBg;
-      color: $white;
+      background-color: $activeBorder;
     }
   }
 }

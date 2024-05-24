@@ -16,7 +16,8 @@ export default function LogoutButton() {
   return (
     <button className={styles.logOut__btn} type="button" onClick={handleLogout}>
       <div className={styles.logOut__btn__image}>
-        {user?.photoURL ? (
+        {user?.photoURL &&
+        !(user?.email && user.email.includes('gmail.com')) ? (
           <img src={user?.photoURL} alt="profile" />
         ) : (
           <FaUserCircle className={styles.logOut__btn__imageIcon} />

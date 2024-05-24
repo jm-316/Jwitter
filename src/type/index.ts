@@ -46,3 +46,13 @@ export interface SearchContextProps {
   tags: string[];
   setTags: Dispatch<SetStateAction<string[]>>;
 }
+
+export interface FollowingProps {
+  post: PostProps;
+}
+
+export interface UserProps {
+  id: string;
+}
+
+export type TabType = 'all' | 'following';

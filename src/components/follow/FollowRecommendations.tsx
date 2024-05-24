@@ -1,16 +1,18 @@
 import { FaUserCircle } from 'react-icons/fa';
 import { useContext } from 'react';
-import AuthContext from './context/AuthContext';
+import AuthContext from '../context/AuthContext';
 import styles from './FollowRecommendations.module.scss';
 
 export default function FollowRecommendations() {
   const { user } = useContext(AuthContext);
+
   return (
     <div className={styles.follow}>
       <h3>팔로우 추천</h3>
       <div className={styles.follow__wrapper}>
         <div className={styles.follow__profile}>
-          {user?.photoURL ? (
+          {user?.photoURL &&
+          !(user?.email && user.email.includes('gmail.com')) ? (
             <img src={user?.photoURL} alt="profile" />
           ) : (
             <FaUserCircle className={styles.follow__imageIcon} />

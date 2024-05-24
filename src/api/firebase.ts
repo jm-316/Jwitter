@@ -20,6 +20,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  setDoc,
   updateDoc,
   where,
 } from 'firebase/firestore';
@@ -32,7 +33,7 @@ import {
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDateKrTime } from '../util/date';
-import { CommentProps, PostProps } from '../type';
+import { CommentProps, PostProps, UserProps } from '../type';
 
 export let app: FirebaseApp;
 
@@ -145,6 +146,31 @@ export async function getPosts(callback: (posts: PostProps[]) => void) {
   });
 }
 
+export async function getFollowingPost(
+  followingIds: string[],
+  callback: (posts: PostProps[]) => void,
+) {
+  if (followingIds.length === 0) {
+    callback([]);
+    return;
+  }
+
+  const postRef = collection(db, 'posts');
+  const followingQuery = query(
+    postRef,
+    where('uid', 'in', followingIds),
+    orderBy('createdAt', 'desc'),
+  );
+
+  onSnapshot(followingQuery, (snapShot) => {
+    const dataObj = snapShot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc?.id,
+    }));
+    callback(dataObj as PostProps[]);
+  });
+}
+
 export async function DeletePost(post: PostProps) {
   const imageRef = ref(storage, post?.imageUrl);
   if (post?.imageUrl) {
@@ -226,5 +252,53 @@ export async function searchHashTags(
       id: doc?.id,
     }));
     callback(dataObj as PostProps[]);
+  });
+}
+
+export async function following(user: User, post: PostProps) {
+  const followingRef = doc(db, 'following', user?.uid);
+  const followerRef = doc(db, 'follower', post?.uid);
+
+  await setDoc(
+    followingRef,
+    {
+      users: arrayUnion({ id: post?.uid }),
+    },
+    { merge: true },
+  );
+
+  await setDoc(
+    followerRef,
+    { users: arrayUnion({ id: user?.uid }) },
+    { merge: true },
+  );
+}
+
+export async function removeFollowing(user: User, post: PostProps) {
+  const followingRef = doc(db, 'following', user?.uid);
+  const followerRef = doc(db, 'follower', post?.uid);
+
+  await updateDoc(followingRef, {
+    users: arrayRemove({ id: post?.uid }),
+  });
+  await updateDoc(followerRef, {
+    users: arrayRemove({ id: user.uid }),
+  });
+}
+
+export async function getFollowInfo(
+  uid: string,
+  collectionName: 'follower' | 'following',
+  callback: (userIds: string[]) => void,
+) {
+  const ref = doc(db, collectionName, uid);
+  onSnapshot(ref, (doc) => {
+    const data = doc?.data();
+    if (data && data.users) {
+      const userIds = data.users.map((user: UserProps) => user.id); // 모든 id를 배열로 추출
+      callback(userIds);
+    } else {
+      callback([]);
+    }
   });
 }
