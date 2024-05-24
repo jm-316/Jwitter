@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/AuthContext';
-import { following, getFollowers, removeFollowing } from '../../api/firebase';
+import { following, getFollowInfo, removeFollowing } from '../../api/firebase';
 import { getErrorMessage } from '../../util/error';
 import { FollowingProps } from '../../type';
 import styles from './FollowingBox.module.scss';
@@ -42,7 +42,7 @@ export default function FollowingBox({ post }: FollowingProps) {
 
   useEffect(() => {
     if (post.uid) {
-      getFollowers(post.uid, setPostFollowers);
+      getFollowInfo(post.uid, 'follower', setPostFollowers);
     }
   }, [post.uid]);
 

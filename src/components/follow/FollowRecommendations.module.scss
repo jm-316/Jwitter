@@ -45,12 +45,10 @@
 
   &__btn {
     @extend .button;
-    color: $background;
-    width: 76px;
+    background-color: $primaryColor;
 
     &:hover {
-      background-color: $activeBg;
-      color: $white;
+      background-color: $activeBorder;
     }
   }
 }
