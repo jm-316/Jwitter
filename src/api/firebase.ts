@@ -146,6 +146,31 @@ export async function getPosts(callback: (posts: PostProps[]) => void) {
   });
 }
 
+export async function getFollowingPost(
+  followingIds: string[],
+  callback: (posts: PostProps[]) => void,
+) {
+  if (followingIds.length === 0) {
+    callback([]);
+    return;
+  }
+
+  const postRef = collection(db, 'posts');
+  const followingQuery = query(
+    postRef,
+    where('uid', 'in', followingIds),
+    orderBy('createdAt', 'desc'),
+  );
+
+  onSnapshot(followingQuery, (snapShot) => {
+    const dataObj = snapShot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc?.id,
+    }));
+    callback(dataObj as PostProps[]);
+  });
+}
+
 export async function DeletePost(post: PostProps) {
   const imageRef = ref(storage, post?.imageUrl);
   if (post?.imageUrl) {
@@ -261,14 +286,19 @@ export async function removeFollowing(user: User, post: PostProps) {
   });
 }
 
-export async function getFollowers(
+export async function getFollowInfo(
   uid: string,
-  callback: (followers: string[]) => void,
+  collectionName: 'follower' | 'following',
+  callback: (userIds: string[]) => void,
 ) {
-  const ref = doc(db, 'follower', uid);
+  const ref = doc(db, collectionName, uid);
   onSnapshot(ref, (doc) => {
-    const followers: string[] = [];
-    doc?.data()?.users.map((user: UserProps) => followers.push(user?.id));
-    callback(followers);
+    const data = doc?.data();
+    if (data && data.users) {
+      const userIds = data.users.map((user: UserProps) => user.id); // 모든 id를 배열로 추출
+      callback(userIds);
+    } else {
+      callback([]);
+    }
   });
 }
