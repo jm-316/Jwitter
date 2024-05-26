@@ -36,10 +36,8 @@ const router = createBrowserRouter([
       {
         path: 'posts',
         children: [
-          { path: '', element: <PostListPage /> },
           { path: ':id', element: <PostDetailPage /> },
           { path: 'edit/:id', element: <PostEditPage /> },
-          { path: 'new', element: <PostNewPage /> },
         ],
       },
       {
