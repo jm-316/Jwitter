@@ -302,3 +302,41 @@ export async function getFollowInfo(
     }
   });
 }
+
+export async function getMyPosts(
+  uid: string,
+  callback: (posts: PostProps[]) => void,
+) {
+  const postRef = collection(db, 'posts');
+  const myPostQuery = query(
+    postRef,
+    where('uid', '==', uid),
+    orderBy('createdAt', 'desc'),
+  );
+  onSnapshot(myPostQuery, (snapShot) => {
+    const dataObj = snapShot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc?.id,
+    }));
+    callback(dataObj as PostProps[]);
+  });
+}
+
+export async function getLikePosts(
+  uid: string,
+  callback: (posts: PostProps[]) => void,
+) {
+  const postRef = collection(db, 'posts');
+  const likePostQuery = query(
+    postRef,
+    where('likes', 'array-contains', uid),
+    orderBy('createdAt', 'desc'),
+  );
+  onSnapshot(likePostQuery, (snapShot) => {
+    const dataObj = snapShot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc?.id,
+    }));
+    callback(dataObj as PostProps[]);
+  });
+}
