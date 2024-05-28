@@ -28,12 +28,18 @@
         @extend .button;
         padding: 0.2rem 0.8rem;
         background-color: $danger;
+        margin-top: 10px;
 
         &:hover,
         &:focus {
           background-color: $dangerDark;
         }
       }
+    }
+
+    &__imgIcon {
+      width: 120px;
+      height: 120px;
     }
 
     &__profile {
