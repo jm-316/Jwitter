@@ -56,3 +56,5 @@ export interface UserProps {
 }
 
 export type TabType = 'all' | 'following';
+
+export type ProfileTabType = 'my' | 'like';

@@ -99,16 +99,17 @@ export default function PostEdit() {
 
     try {
       if (!data) return;
+      if (!user) return;
 
       if (data?.imageUrl) {
-        await deleteImage(data);
+        await deleteImage(data?.imageUrl);
       }
 
       let imageUrl = '';
       if (imageFile && user) {
         imageUrl = await uploadImage(user?.uid, imageFile);
       }
-      await updatePost(data, content, tags, imageUrl);
+      await updatePost(user, data, content, tags, imageUrl);
       navigate(`/posts/${data?.id}`);
       toast.success('게시글을 수정했습니다.');
       setImageFile(null);

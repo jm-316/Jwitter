@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import {
   addDoc,
@@ -98,6 +99,7 @@ export async function uploadImage(userUid: string, imageFile: string) {
 }
 
 export async function updatePost(
+  user: User,
   post: PostProps,
   content: string,
   tags: string[],
@@ -109,10 +111,11 @@ export async function updatePost(
     content: content,
     hashTags: tags,
     imageUrl: imageUrl,
+    profileUrl: user?.photoURL ?? null,
   });
 }
-export async function deleteImage(post: PostProps) {
-  const imageRef = ref(storage, post?.imageUrl);
+export async function deleteImage(imageUrl: string) {
+  const imageRef = ref(storage, imageUrl);
 
   await deleteObject(imageRef).catch((error) => console.log(error));
 }
@@ -130,6 +133,7 @@ export async function createPost(
     email: user?.email,
     hashTags: tags,
     imageUrl: imageUrl,
+    profileUrl: user?.photoURL ?? null,
   });
 }
 
@@ -300,5 +304,56 @@ export async function getFollowInfo(
     } else {
       callback([]);
     }
+  });
+}
+
+export async function getMyPosts(
+  uid: string,
+  callback: (posts: PostProps[]) => void,
+) {
+  const postRef = collection(db, 'posts');
+  const myPostQuery = query(
+    postRef,
+    where('uid', '==', uid),
+    orderBy('createdAt', 'desc'),
+  );
+  onSnapshot(myPostQuery, (snapShot) => {
+    const dataObj = snapShot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc?.id,
+    }));
+    callback(dataObj as PostProps[]);
+  });
+}
+
+export async function getLikePosts(
+  uid: string,
+  callback: (posts: PostProps[]) => void,
+) {
+  const postRef = collection(db, 'posts');
+  const likePostQuery = query(
+    postRef,
+    where('likes', 'array-contains', uid),
+    orderBy('createdAt', 'desc'),
+  );
+  onSnapshot(likePostQuery, (snapShot) => {
+    const dataObj = snapShot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc?.id,
+    }));
+    callback(dataObj as PostProps[]);
+  });
+}
+
+export async function updatedProfile(
+  user: User,
+  displayName: string,
+  newImageUrl: string,
+) {
+  await updateProfile(user, {
+    displayName: displayName || '',
+    photoURL: newImageUrl || user?.photoURL,
+  }).catch((error) => {
+    console.log(error);
   });
 }

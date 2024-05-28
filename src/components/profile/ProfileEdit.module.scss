@@ -1,0 +1,81 @@
+@import '../../style.scss';
+@import '../../pages/home/Home.module.scss';
+
+.profile__editContainer {
+  padding: 12px 16px;
+  border-bottom: 1px solid $border;
+
+  .editForm {
+    &__flex {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+    }
+
+    &__imgBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+
+      &__label {
+        @extend .button;
+        padding: 0.2rem 0.8rem;
+        background-color: $danger;
+        margin-top: 10px;
+
+        &:hover,
+        &:focus {
+          background-color: $dangerDark;
+        }
+      }
+    }
+
+    &__imgIcon {
+      width: 120px;
+      height: 120px;
+    }
+
+    &__profile {
+      &__input {
+        font-weight: 700;
+        font-size: 20px;
+        background-color: $background;
+        color: $white;
+        border: none;
+        margin-bottom: 10px;
+      }
+
+      &__email {
+        font-size: 15px;
+      }
+    }
+
+    &__submitArea {
+      text-align: center;
+
+      .editForm__btn {
+        @extend .button;
+        padding: 0.5rem 1rem;
+        background-color: $primaryColor;
+        margin-top: 20px;
+
+        &:hover,
+        &:focus {
+          background-color: $activeBorder;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+}
