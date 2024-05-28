@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import { FaUserCircle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useContext } from 'react';
@@ -8,9 +9,12 @@ import styles from './LogoutButton.module.scss';
 export default function LogoutButton() {
   const { user } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
     await logOut();
     toast.success('로그아웃 되었습니다.');
+    navigate('/');
   };
 
   return (
