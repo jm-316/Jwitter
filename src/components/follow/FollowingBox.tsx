@@ -1,7 +1,12 @@
 import { toast } from 'react-toastify';
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/AuthContext';
-import { following, getFollowInfo, removeFollowing } from '../../api/firebase';
+import {
+  createdNotification,
+  following,
+  getFollowInfo,
+  removeFollowing,
+} from '../../api/firebase';
 import { getErrorMessage } from '../../util/error';
 import { FollowingProps } from '../../type';
 import styles from './FollowingBox.module.scss';
@@ -16,6 +21,9 @@ export default function FollowingBox({ post }: FollowingProps) {
     try {
       if (user?.uid) {
         await following(user, post);
+
+        const content = `${user?.email || user?.displayName}가 팔로우 했습니다.`;
+        await createdNotification(post?.uid, content, '#');
       }
       toast.success('팔로우 헀습니다.');
     } catch (error) {
