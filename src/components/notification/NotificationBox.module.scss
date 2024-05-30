@@ -4,6 +4,7 @@
 .notification {
   padding: 8px 16px;
   border-bottom: 1px solid $border;
+  border-top: 1px solid $border;
   cursor: pointer;
 
   &:hover {
@@ -31,5 +32,16 @@
 
   &__content {
     font-size: 15px;
+  }
+
+  &__noPost {
+    padding: 16px;
+    text-align: center;
+
+    &__text {
+      border: 1px solid $gray;
+      padding: 16px;
+      border-radius: 4px;
+    }
   }
 }
