@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
-import { createComment } from '../../api/firebase';
+import { createComment, createdNotification } from '../../api/firebase';
 import { getErrorMessage } from '../../util/error';
 import { CommentFromProps } from '../../type';
 import styles from './CommentForm.module.scss';
@@ -26,6 +26,12 @@ export default function CommentForm({ post }: CommentFromProps) {
     if (user && post) {
       try {
         await createComment(post, comment, user);
+
+        if (user?.uid !== post?.uid) {
+          const content = `${post?.content} 글에 댓글이 작성되었습니다.`;
+          const url = `/posts/${post?.id}`;
+          await createdNotification(post?.uid, content, url);
+        }
         toast.success('댓글을 생성했습니다.');
         setComment('');
       } catch (error) {
