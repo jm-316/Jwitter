@@ -34,7 +34,7 @@ import {
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDateKrTime } from '../util/date';
-import { CommentProps, PostProps, UserProps } from '../type';
+import { CommentProps, NotificationProps, PostProps, UserProps } from '../type';
 
 export let app: FirebaseApp;
 
@@ -355,5 +355,48 @@ export async function updatedProfile(
     photoURL: newImageUrl || user?.photoURL,
   }).catch((error) => {
     console.log(error);
+  });
+}
+
+export async function getNotifications(
+  uid: string,
+  callback: (notifications: NotificationProps[]) => void,
+) {
+  const ref = collection(db, 'notifications');
+  const notificationQuery = query(
+    ref,
+    where('uid', '==', uid),
+    orderBy('createdAt', 'desc'),
+  );
+
+  onSnapshot(notificationQuery, (snapShot) => {
+    const dataObj = snapShot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+
+    callback(dataObj as NotificationProps[]);
+  });
+}
+
+export async function createdNotification(
+  uid: string,
+  content: string,
+  url: string,
+) {
+  await addDoc(collection(db, 'notifications'), {
+    createdAt: formatDateKrTime(),
+    content: content,
+    url: url,
+    isRead: false,
+    uid: uid,
+  });
+}
+
+export async function updateNotification(id: string) {
+  const ref = doc(db, 'notifications', id);
+
+  await updateDoc(ref, {
+    isRead: true,
   });
 }
