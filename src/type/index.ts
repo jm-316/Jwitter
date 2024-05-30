@@ -58,3 +58,12 @@ export interface UserProps {
 export type TabType = 'all' | 'following';
 
 export type ProfileTabType = 'my' | 'like';
+
+export interface NotificationProps {
+  id: string;
+  uid: string;
+  url: string;
+  isRead: boolean;
+  content: string;
+  createdAt: string;
+}
