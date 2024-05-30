@@ -5,7 +5,7 @@ import { NotificationProps } from '../../type';
 import AuthContext from '../context/AuthContext';
 import { getNotifications } from '../../api/firebase';
 import NotificationBox from './NotificationBox';
-import styles from '../../pages/home/Home.module.scss';
+import styles from './Notification.module.scss';
 
 export default function Notification() {
   const [notifications, setNotifications] = useState<NotificationProps[]>([]);
