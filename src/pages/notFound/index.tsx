@@ -6,7 +6,7 @@ export default function NotFoundPage() {
   return (
     <div className={styles.error}>
       <div className={styles.error__logo}>
-        <img src="./logo.png" alt="logo" />
+        <img src="/logo.png" alt="logo" />
       </div>
       <div>
         <h1 className={styles.error__title}>404</h1>
