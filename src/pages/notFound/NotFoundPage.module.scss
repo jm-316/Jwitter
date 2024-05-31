@@ -1,0 +1,33 @@
+@import '../../style.scss';
+
+.error {
+  max-width: 600px;
+  min-height: 100vh;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  img {
+    width: 200px;
+    height: 200px;
+  }
+
+  &__title {
+    font-size: 4rem;
+  }
+
+  &__content {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    @extend .button;
+    background-color: $primaryColor;
+    font-size: 17px;
+    padding: 12px 20px;
+  }
+}
