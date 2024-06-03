@@ -1,9 +1,9 @@
 @import '../../style.scss';
 
 .post {
+  border: 1px solid $border;
   &__box {
     padding: 10px 0px;
-    border-bottom: 1px solid $border;
 
     a {
       text-decoration: none;
@@ -119,5 +119,81 @@
   }
   &__followingBox {
     margin-left: auto;
+  }
+}
+
+@include xsMobile {
+  .post {
+    width: 300px;
+
+    &__email {
+      font-size: 10px;
+      color: $grayText;
+    }
+
+    &__createdAt {
+      display: none;
+    }
+
+    .post__boxProfileIcon,
+    .post__profileImage {
+      width: 35px;
+      height: 35px;
+    }
+    .post__boxContent {
+      font-size: 13px;
+    }
+
+    .post__hashtagsTag {
+      font-size: 12px;
+    }
+
+    button {
+      font-size: 11px;
+    }
+  }
+}
+
+@include mobile {
+  .post {
+    width: 300px;
+
+    &__email {
+      font-size: 11px;
+      color: $grayText;
+    }
+
+    &__createdAt {
+      display: none;
+    }
+
+    .post__boxProfileIcon,
+    .post__profileImage {
+      width: 35px;
+      height: 35px;
+    }
+    .post__boxContent {
+      font-size: 15px;
+    }
+
+    .post__hashtagsTag {
+      font-size: 12px;
+    }
+
+    button {
+      font-size: 11px;
+    }
+  }
+}
+
+@include tablet {
+  .post {
+    width: 660px;
+  }
+
+  .post__boxProfileIcon,
+  .post__profileImage {
+    width: 40px;
+    height: 40px;
   }
 }
