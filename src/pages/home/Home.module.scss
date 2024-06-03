@@ -46,3 +46,21 @@
     border-radius: 4px;
   }
 }
+
+@include xsMobile {
+  .home {
+    width: 300px;
+  }
+}
+
+@include mobile {
+  .home {
+    width: 300px;
+  }
+}
+
+@include tablet {
+  .home {
+    width: 660px;
+  }
+}
