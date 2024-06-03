@@ -8,11 +8,13 @@
   margin: 12px 0;
   border: none;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   background-color: $background;
   color: $white;
   margin-top: auto;
   cursor: pointer;
+  position: fixed;
+  bottom: 20px;
 
   &:hover {
     color: $grayText;
@@ -40,5 +42,35 @@
     font-weight: 300;
     text-align: left;
     padding-left: 5px;
+  }
+}
+
+@include xsMobile {
+  .logOut__btn {
+    width: 35px;
+    height: 35px;
+  }
+  .logOut__btn__username {
+    display: none;
+  }
+}
+
+@include mobile {
+  .logOut__btn {
+    width: 35px;
+    height: 35px;
+  }
+  .logOut__btn__username {
+    display: none;
+  }
+}
+
+@include tablet {
+  .logOut__btn {
+    width: 40px;
+    height: 40px;
+  }
+  .logOut__btn__username {
+    display: none;
   }
 }
