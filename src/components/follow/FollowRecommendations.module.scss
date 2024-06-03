@@ -58,3 +58,21 @@
     }
   }
 }
+
+@include xsMobile {
+  .follow {
+    display: none;
+  }
+}
+
+@include mobile {
+  .follow {
+    display: none;
+  }
+}
+
+@include tablet {
+  .follow {
+    display: none;
+  }
+}
