@@ -79,3 +79,31 @@
     display: none;
   }
 }
+
+@include xsMobile {
+  .editForm {
+    .editForm__img,
+    .editForm__imgIcon {
+      width: 90px;
+      height: 90px;
+    }
+
+    .editForm__profile__input {
+      width: 100px;
+    }
+  }
+}
+
+@include mobile {
+  .editForm {
+    .editForm__img,
+    .editForm__imgIcon {
+      width: 90px;
+      height: 90px;
+    }
+
+    .editForm__profile__input {
+      width: 100px;
+    }
+  }
+}

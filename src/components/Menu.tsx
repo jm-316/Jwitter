@@ -13,7 +13,7 @@ export default function Menu() {
         <Link to="/">
           <div className={styles.navPill}>
             <BsHouse className={styles.navIcon} />
-            <span>홈</span>
+            <span className={styles.navPill__text}>홈</span>
           </div>
         </Link>
       </li>
@@ -21,7 +21,7 @@ export default function Menu() {
         <Link to="/search">
           <div className={styles.navPill}>
             <IoIosSearch className={styles.navIcon} />
-            <span>탐색하기</span>
+            <span className={styles.navPill__text}>탐색하기</span>
           </div>
         </Link>
       </li>
@@ -29,7 +29,7 @@ export default function Menu() {
         <Link to="/notifications">
           <div className={styles.navPill}>
             <IoMdNotificationsOutline className={styles.navIcon} />
-            <span>알림</span>
+            <span className={styles.navPill__text}>알림</span>
           </div>
         </Link>
       </li>
@@ -37,7 +37,7 @@ export default function Menu() {
         <Link to="/profile">
           <div className={styles.navPill}>
             <FaUserCircle className={styles.navIcon} />
-            <span>프로필</span>
+            <span className={styles.navPill__text}>프로필</span>
           </div>
         </Link>
       </li>

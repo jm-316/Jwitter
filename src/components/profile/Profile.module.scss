@@ -60,3 +60,79 @@
     font-size: 18px;
   }
 }
+
+@include xsMobile {
+  .profile {
+    &__userBox {
+      width: 300px;
+    }
+
+    &__img,
+    &__imgIcon {
+      width: 50px;
+      height: 50px;
+    }
+
+    &__userInfo__container {
+      width: 100px;
+    }
+
+    &__userName,
+    &__userEmail {
+      font-size: 13px;
+    }
+
+    &__btn {
+      width: 80px;
+      height: 30px;
+      font-size: 11px;
+    }
+  }
+}
+
+@include mobile {
+  .profile {
+    &__userBox {
+      width: 300px;
+    }
+
+    &__img,
+    &__imgIcon {
+      width: 50px;
+      height: 50px;
+    }
+
+    &__userInfo__container {
+      width: 100px;
+    }
+
+    &__userName,
+    &__userEmail {
+      font-size: 13px;
+    }
+
+    &__btn {
+      width: 80px;
+      height: 30px;
+      font-size: 11px;
+    }
+  }
+}
+
+@include tablet {
+  .profile {
+    &__userBox {
+      width: 660px;
+    }
+
+    &__userInfo__container {
+      width: 400px;
+    }
+
+    &__img,
+    &__imgIcon {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}

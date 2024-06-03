@@ -53,14 +53,11 @@ export default function PostList({ post }: PostListProps) {
               <FaUserCircle className={styles.post__boxProfileIcon} />
             )}
             <div>
-              <div className={styles.test}>
-                <div className={styles.post__flex}>
-                  <div className={styles.post__email}>{post?.email}</div>
-                  <div className={styles.post__createdAt}>
-                    {post?.createdAt}
-                  </div>
-                </div>
+              <div className={styles.post__flex}>
+                <div className={styles.post__email}>{post?.email}</div>
+                <div className={styles.post__createdAt}>{post?.createdAt}</div>
               </div>
+
               <Link to={`/posts/${post?.id}`}>
                 <div className={styles.post__boxContent}>{post.content}</div>
               </Link>
