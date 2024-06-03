@@ -78,3 +78,57 @@
 .hidden {
   display: none;
 }
+
+@include xsMobile {
+  .search {
+    display: none;
+  }
+
+  .searchLg {
+    width: 300px;
+
+    .search__input {
+      width: 280px;
+    }
+
+    .search__post {
+      width: 280px;
+    }
+  }
+}
+
+@include mobile {
+  .search {
+    display: none;
+  }
+
+  .searchLg {
+    width: 300px;
+
+    .search__input {
+      width: 280px;
+    }
+
+    .search__post {
+      width: 280px;
+    }
+  }
+}
+
+@include tablet {
+  .search {
+    display: none;
+  }
+
+  .searchLg {
+    width: 660px;
+
+    .search__input {
+      width: 640px;
+    }
+
+    .search__post {
+      width: 640px;
+    }
+  }
+}
