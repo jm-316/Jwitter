@@ -31,7 +31,7 @@ export default function AppLayout() {
               <div className={styles.left__sectionFixed}>
                 <Link to="/" className={styles.logo}>
                   <div className={styles.logoPill}>
-                    <img src="./logo.png" alt="logo" width={60} height={60} />
+                    <img src="/logo.png" alt="logo" width={60} height={60} />
                   </div>
                 </Link>
               </div>
