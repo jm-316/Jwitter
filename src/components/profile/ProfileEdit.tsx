@@ -40,6 +40,7 @@ export default function ProfileEdit() {
       };
     }
   };
+
   useEffect(() => {
     if (user?.photoURL) {
       setImageUrl(user?.photoURL);
@@ -55,10 +56,16 @@ export default function ProfileEdit() {
 
     try {
       let newImageUrl = '';
-      if (user?.photoURL && imageUrl && imageUrl !== user.photoURL) {
-        await deleteImage(user.photoURL);
-        newImageUrl = await uploadImage(user?.uid, imageUrl);
+
+      if (user && imageUrl && imageUrl !== user.photoURL) {
+        if (user.photoURL) {
+          await deleteImage(user.photoURL);
+        }
+        newImageUrl = await uploadImage(user.uid, imageUrl);
+      } else if (user && !user.photoURL && imageUrl) {
+        newImageUrl = await uploadImage(user.uid, imageUrl);
       }
+
       if (user) {
         await updatedProfile(user, displayName, newImageUrl);
       }
