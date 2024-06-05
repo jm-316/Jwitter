@@ -1,10 +1,8 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import Home from './pages/home/index.tsx';
-import PostListPage from './pages/posts/index.tsx';
 import PostDetailPage from './pages/posts/detail.tsx';
 import PostEditPage from './pages/posts/edit.tsx';
-import PostNewPage from './pages/posts/new.tsx';
 import NotificationsPage from './pages/notifications/index.tsx';
 import ProfilePage from './pages/profile/index.tsx';
 import ProfileEditPage from './pages/profile/edit.tsx';
