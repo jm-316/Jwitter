@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify';
 import { LuImage } from 'react-icons/lu';
-import { IoSearchSharp } from 'react-icons/io5';
 import { useNavigate, useParams } from 'react-router';
 import { useContext, useEffect, useState } from 'react';
 import Header from '../Header';
@@ -13,6 +12,7 @@ import {
   uploadImage,
 } from '../../api/firebase';
 import { PostProps } from '../../type';
+import Search from '../search/Search';
 import styles from './PostForm.module.scss';
 
 export default function PostEdit() {
@@ -101,14 +101,14 @@ export default function PostEdit() {
       if (!data) return;
       if (!user) return;
 
-      if (data?.imageUrl) {
-        await deleteImage(data?.imageUrl);
+      let imageUrl = data.imageUrl || '';
+      if (imageFile && user && imageFile !== data.imageUrl) {
+        if (data?.imageUrl) {
+          await deleteImage(data?.imageUrl);
+        }
+        imageUrl = await uploadImage(user.uid, imageFile);
       }
 
-      let imageUrl = '';
-      if (imageFile && user) {
-        imageUrl = await uploadImage(user?.uid, imageFile);
-      }
       await updatePost(user, data, content, tags, imageUrl);
       navigate(`/posts/${data?.id}`);
       toast.success('게시글을 수정했습니다.');
@@ -119,6 +119,7 @@ export default function PostEdit() {
       toast.error(errorMessage);
     }
   };
+
   return (
     <>
       <div className={styles.home}>
@@ -197,13 +198,7 @@ export default function PostEdit() {
           </div>
         </form>
       </div>
-      <div className={styles.search}>
-        <div className={styles.search__div}>
-          <IoSearchSharp className={styles.search__icon} />
-          <input placeholder="해시태그 검색" className={styles.search__input} />
-        </div>
-        <div className={styles.search__post}>검색 내역이 없습니다.</div>
-      </div>
+      <Search isHome={true} />
     </>
   );
 }
