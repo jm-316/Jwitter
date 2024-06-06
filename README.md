@@ -1,30 +1,43 @@
-# React + TypeScript + Vite
+# Jwitter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**배포 링크**: https://jwitter-mauve.vercel.app
 
-Currently, two official plugins are available:
+## 프로젝트 소개
+Jwitter는 React와 Firebase를 이용하여 트위터의 레이아웃과 기능을 유사하게 만든 트위터 클론 프로젝트입니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 사용 기술
+- **Frontend**: React, TypeScript, React-Router-DOM, SCSS
+- **Backend**: Firebase
+- **Build**: Vite
+- **Deploy**: Vercel
 
-## Expanding the ESLint configuration
+## 기능 소개
+1. **트윗 작성**
+   - 트윗을 작성하여 게시하고 싶은 내용을 담을 수 있습니다.
+   - 사진 첨부가 가능하며, 해시태그를 입력할 수 있습니다.
+2. **실시간 업데이트**
+   - 새로운 트윗을 실시간으로 볼 수 있으며, 팔로우하고 있는 사용자의 트윗만 볼 수도 있습니다.
+3. **좋아요 (Heart)**
+   - 내가 좋아하는 글에 좋아요를 누를 수 있습니다.
+   - 좋아요를 한 트윗을 프로필 페이지에서 따로 볼 수 있습니다.
+4. **알림**
+   - 내가 작성한 트윗에 댓글이 달리거나, 다른 유저가 팔로우 했을 경우 알림을 받을 수 있습니다.
+5. **검색**
+   - 해시태그를 검색하면 해당 태그가 담긴 글을 볼 수 있습니다.
+   - 이전에 검색한 내역을 확인할 수 있습니다.
+6. **사용자 팔로잉**
+   - 원하는 사용자를 팔로우 할 수 있습니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 실행 화면
+https://github.com/jm-316/Jwitter/assets/130331748/db336c5a-7b2d-4fb7-81db-1bdfb4fc9086
 
-- Configure the top-level `parserOptions` property like this:
+## 프로젝트 후기 및 문제 해결
+이번 프로젝트에서는 이미지를 업로드하고 수정하는 기능을 구현하는 것이 조금 어려웠습니다. 업로드 부분에서는 input으로 이미지를 받아서 Base64로 변환하고 업로드 하는 과정에서 too long이라는 오류가 발생해서 바로 Cloud Firestore에 업로드를 하는 것이 아닌 Storage에 업로드를 해서 주소를 가져오는 형태로 해결했습니다.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+수정하는 부분에서는 처음 구현할 때는 이미지 수정이 가능한지 테스트하다 보니 먼저 기존의 이미지를 삭제하고 새로운 이미지를 넣고 수정이 완료되는지를 테스트했고 작동되는 것을 확인했습니다. 그래서 문제가 없다고 생각되었지만 이미지를 수정하지 않는 경우를 생각하지 못해서 DB에서 이미지 주소를 찾지 못해 오류가 발생했었습니다. 이 문제를 해결하기 위해 어디에서 데이터가 들어오는지, 어떤 부분에서 데이터가 생성되지 않는 건지, 그리고 if문을 어떻게 작성해야 최대한 중복되지 않게 작성될지에 대해서 많이 고민을 했고, 오류가 해결되었을 때는 엄청난 성취감이 느껴졌습니다.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+마지막으로 media query를 이용해서 모바일 반응형 작업을 진행하는 부분도 수많은 시행착오를 겪었습니다. 단순하게 css만 수정하는 것이 아닌 화면이 작아졌을 때 어떻게 하면 사용자가 더 편하게 사용할 수 있을지 생각하는 계기가 되어서 많은 도움이 된 거 같습니다.
+
+아직까지 코드가 많이 지저분하고 여러 가지 기능들을 쉽게 구현하지 못했지만, 천천히 하나씩 배워가며 리팩토링해서 완성도 있는 웹페이지로 만들어갈 예정입니다. 이번 경험을 바탕으로 더 유용하고 재미있는 프로젝트를 만들고 싶습니다. 지금까지 읽어주셔서 감사합니다.
+
+
